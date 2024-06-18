@@ -1,19 +1,43 @@
 function traverseRowWise(matrix) {
   let result = [];
-  for (let i = 0; i < matrix.length; i++) {
-      for (let j = 0; j < matrix[i].length; j++) {
-          result.push(matrix[i][j]);
-      }
-  }
+  matrix.forEach(row => result.push(...row));
   return result;
 }
 
-let matrix = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 9]
-];
+function runTests() {
+  const testCases = [
+    {
+      input: [[1, 2, 3], [4, 5, 6], [7, 8, 9]],
+      expected: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    },
+    {
+      input: [[1], [2], [3], [4]],
+      expected: [1, 2, 3, 4]
+    },
+    {
+      input: [[1, 2], [3, 4], [5, 6], [7, 8]],
+      expected: [1, 2, 3, 4, 5, 6, 7, 8]
+    },
+    {
+      input: [[]],
+      expected: []
+    },
+    {
+      input: [[], [], []],
+      expected: []
+    }
+  ];
 
-console.log(traverseRowWise(matrix));  // Output: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+  testCases.forEach(({ input, expected }, index) => {
+    const result = traverseRowWise(input);
+    const passed = JSON.stringify(result) === JSON.stringify(expected);
+    console.log(`Test Case ${index + 1}: ${passed ? 'Passed' : 'Failed'}`);
+    if (!passed) {
+      console.log(`  Input: ${JSON.stringify(input)}`);
+      console.log(`  Expected: ${JSON.stringify(expected)}`);
+      console.log(`  Got: ${JSON.stringify(result)}`);
+    }
+  });
+}
 
-
+runTests();
